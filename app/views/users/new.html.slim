@@ -1,0 +1,15 @@
+h1 Create a new user
+
+=@user.errors.full_messages.join(", ")
+
+=form_for @user do |f|
+  p First Name
+  =f.text_field :first_name
+  p Email
+  =f.email_field :email
+  p Password
+  =f.password_field :password
+  p Confirm password
+  =f.password_field :password_confirmation
+  br
+  =f.submit

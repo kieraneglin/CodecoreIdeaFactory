@@ -1,0 +1,54 @@
+doctype html
+html
+  head
+    title
+      | IdeaFactory
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  body.col-md-offset-1
+    nav
+      = link_to "home", root_path
+      |  | 
+      - if user_signed_in?
+        = link_to "Sign out ", sessions_path, method: :delete, class: "btn btn-primary"
+        |  | 
+        button.btn.btn-info[type="button" data-toggle="modal" data-target="#myModal"]
+          | Submit new
+        #myModal.modal.fade[role="dialog"]
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close[type="button" data-dismiss="modal"]
+                  | ×
+                h4.modal-title
+                  | New Idea
+              .modal-body
+                p
+                  =form_tag(ideas_path, {method: :create, multipart: true})
+                    p Title
+                    =text_field_tag "idea[title]","", class: "form-control"
+                    p Body
+                    =text_area_tag "idea[body]","", class: "form-control"
+                    p Attachment
+                    =file_field_tag "idea[attachment]"
+                    br
+                    =submit_tag "Submit", {class: "btn btn-default"}
+              .modal-footer
+                button.btn.btn-default[type="button" data-dismiss="modal"]
+                  | Close
+      - else
+        = link_to "Log in", new_session_path, class: "btn btn-primary"
+        |  | 
+        = link_to "Sign up", new_user_path, class: "btn btn-success"
+        
+
+      
+    - if flash[:notice]
+      div
+        = flash[:notice]
+    - elsif flash[:alert]
+      div
+        = flash[:alert]
+        
+    ==yield

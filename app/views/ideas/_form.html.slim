@@ -1,0 +1,14 @@
+=@idea.errors.full_messages.join(", ")
+br
+=form_for @idea, html: { class: 'text-center', multipart: true} do |f|
+  div.form-group
+    =f.label :title
+    =f.text_field :title, {class: "form-control", style: "width: 20%; margin: 0 auto;"}
+  div.form-group
+    =f.label :body
+    =f.text_area :body, {class: "form-control", style: "width: 20%; margin: 0 auto;"}
+  div.form-group
+    =f.label :attachment
+    =f.file_field :attachment, {style: "width: 20%; margin: 0 auto;"}
+  br
+  =f.submit "Submit", {class: "btn btn-default"}
